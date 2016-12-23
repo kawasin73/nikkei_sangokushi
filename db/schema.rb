@@ -16,9 +16,11 @@ ActiveRecord::Schema.define(version: 20161223214417) do
   enable_extension "plpgsql"
 
   create_table "lines", force: :cascade do |t|
+    t.integer  "line_id",    null: false
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["line_id"], name: "index_lines_on_line_id", unique: true, using: :btree
   end
 
 end
