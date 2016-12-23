@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223214417) do
+ActiveRecord::Schema.define(version: 20161223221511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,4 +23,13 @@ ActiveRecord::Schema.define(version: 20161223214417) do
     t.index ["line_id"], name: "index_lines_on_line_id", unique: true, using: :btree
   end
 
+  create_table "stations", force: :cascade do |t|
+    t.integer  "line_id",    null: false
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["line_id"], name: "index_stations_on_line_id", using: :btree
+  end
+
+  add_foreign_key "stations", "lines", primary_key: "line_id"
 end

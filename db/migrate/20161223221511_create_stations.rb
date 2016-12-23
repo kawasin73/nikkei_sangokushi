@@ -9,6 +9,6 @@ class CreateStations < ActiveRecord::Migration[5.0]
       t.index :line_id
     end
 
-    add_foreign_key :statings, :lines, column: :line_id, primary_key: :line_id
+    add_foreign_key :stations, :lines, column: :line_id, primary_key: :line_id
   end
 end
