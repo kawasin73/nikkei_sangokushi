@@ -5,6 +5,7 @@
 #  id         :integer          not null, primary key
 #  line_id    :integer          not null
 #  name       :string           not null
+#  name_kana  :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
