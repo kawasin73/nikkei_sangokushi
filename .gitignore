@@ -7,6 +7,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/tmp/downloads/.keep
 !/tmp/sockets/.keep
 /public/system
 /public/uploads/tmp
