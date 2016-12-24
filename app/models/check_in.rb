@@ -22,7 +22,22 @@
 #
 
 class CheckIn < ApplicationRecord
+  class DestroyError < StandardError
+  end
+
   belongs_to :user, inverse_of: :check_ins
   belongs_to :station, inverse_of: :check_ins
   has_many :found_reports, inverse_of: :check_in
+
+  def can_delete?
+    found_reports.count == 0
+  end
+
+  def check_and_destroy!
+    if can_delete?
+      destroy!
+    else
+      raise DestroyError, 'can not destroy'
+    end
+  end
 end
