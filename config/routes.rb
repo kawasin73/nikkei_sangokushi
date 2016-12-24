@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :stations, only: [:index] do
         resources :found_reports, only: [:index]
       end
-      resources :users, only: [] do
+      resources :users, only: [:create] do
         resources :found_reports, only: [:index]
       end
     end
