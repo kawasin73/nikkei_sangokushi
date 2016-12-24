@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223230128) do
+ActiveRecord::Schema.define(version: 20161223230737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20161223230128) do
     t.datetime "updated_at",                 null: false
     t.index ["station_id"], name: "index_check_ins_on_station_id", using: :btree
     t.index ["user_id"], name: "index_check_ins_on_user_id", using: :btree
+  end
+
+  create_table "found_reports", force: :cascade do |t|
+    t.integer  "check_in_id", null: false
+    t.text     "image"
+    t.text     "comment"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["check_in_id"], name: "index_found_reports_on_check_in_id", using: :btree
   end
 
   create_table "lines", force: :cascade do |t|
@@ -54,5 +63,6 @@ ActiveRecord::Schema.define(version: 20161223230128) do
 
   add_foreign_key "check_ins", "stations"
   add_foreign_key "check_ins", "users"
+  add_foreign_key "found_reports", "check_ins"
   add_foreign_key "stations", "lines", primary_key: "line_id"
 end
