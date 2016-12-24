@@ -11,8 +11,8 @@ import 'babel-polyfill'
 import MainContainer from '../containers/MainContainer';
 import configureStore from '../stores/configureMainStore';
 
-const store = configureStore()
-const history = syncHistoryWithStore(browserHistory, store)
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>

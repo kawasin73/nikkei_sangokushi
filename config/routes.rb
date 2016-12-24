@@ -20,4 +20,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root 'static#index'
+  get '*path', to: 'static#index'
 end

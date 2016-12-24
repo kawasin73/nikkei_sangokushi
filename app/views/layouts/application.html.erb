@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>App</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>東京メトロ 日経新聞三国志広告の旅</title>
+  <meta charset="utf-8">
+</head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<div id="content"></div>
+<%= javascript_include_tag 'application' %>
+</body>
 </html>
