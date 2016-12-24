@@ -15,6 +15,7 @@
 #
 
 class User < ApplicationRecord
+  has_many :access_tokens, inverce_of: :user
   has_many :check_ins, inverse_of: :user
   has_many :found_reports, through: :check_ins
 
