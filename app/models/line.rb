@@ -15,4 +15,5 @@
 #
 
 class Line < ApplicationRecord
+  has_many :stations, inverse_of: :line
 end

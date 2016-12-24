@@ -19,4 +19,5 @@
 #
 
 class FoundReport < ApplicationRecord
+  belongs_to :check_in, inverse_of: :found_reports
 end

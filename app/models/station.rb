@@ -19,4 +19,6 @@
 #
 
 class Station < ApplicationRecord
+  belongs_to :line, inverse_of: :stations
+  has_many :check_ins, inverse_of: :station
 end

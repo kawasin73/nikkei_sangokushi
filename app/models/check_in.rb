@@ -22,4 +22,7 @@
 #
 
 class CheckIn < ApplicationRecord
+  belongs_to :user, inverse_of: :check_ins
+  belongs_to :station, inverse_of: :check_ins
+  has_many :found_reports, inverse_of: :check_in
 end
