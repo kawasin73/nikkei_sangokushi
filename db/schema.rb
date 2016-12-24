@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223230737) do
+ActiveRecord::Schema.define(version: 20161224004615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_tokens", force: :cascade do |t|
+    t.integer  "user_id",                        null: false
+    t.string   "token",                          null: false
+    t.string   "refresh_token",                  null: false
+    t.integer  "expires_in",         default: 0, null: false
+    t.datetime "revoked_at"
+    t.string   "prev_refresh_token"
+    t.datetime "created_at"
+    t.index ["refresh_token"], name: "index_access_tokens_on_refresh_token", unique: true, using: :btree
+    t.index ["token"], name: "index_access_tokens_on_token", unique: true, using: :btree
+    t.index ["user_id"], name: "index_access_tokens_on_user_id", using: :btree
+  end
 
   create_table "check_ins", force: :cascade do |t|
     t.integer  "user_id",                    null: false
@@ -63,6 +76,7 @@ ActiveRecord::Schema.define(version: 20161223230737) do
     t.index ["nick_name"], name: "index_users_on_nick_name", unique: true, using: :btree
   end
 
+  add_foreign_key "access_tokens", "users"
   add_foreign_key "check_ins", "stations"
   add_foreign_key "check_ins", "users"
   add_foreign_key "found_reports", "check_ins"
