@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  class NotFound < StandardError
+  end
+  class Forbidden < StandardError
+  end
+
   def authenticate
     # authenticate
   end
