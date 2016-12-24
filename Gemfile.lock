@@ -46,6 +46,7 @@ GEM
       actionpack
       activesupport (>= 3.0.0)
       rspec
+    bcrypt (3.1.11)
     builder (3.2.2)
     bullet (5.4.3)
       activesupport (>= 3.0.0)
@@ -221,6 +222,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   autodoc
+  bcrypt
   bullet
   byebug
   coffee-rails (~> 4.2)

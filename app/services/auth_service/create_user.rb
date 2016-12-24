@@ -28,7 +28,8 @@ module AuthService
     class << self
       def create_user(params)
         ApplicationRecord.transaction do
-          user = ::User.create!(params)
+          user = ::User.new(params)
+          user.save!
           user_service = self.new(user)
           user_service.invoke_token
           user

@@ -64,3 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # models
 gem 'seed-fu'
+
+# encrypt
+gem 'bcrypt'

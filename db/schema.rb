@@ -69,7 +69,8 @@ ActiveRecord::Schema.define(version: 20161224004615) do
 
   create_table "users", force: :cascade do |t|
     t.string   "nick_name",                   null: false
-    t.string   "password",                    null: false
+    t.string   "password_hash",               null: false
+    t.string   "password_salt",               null: false
     t.integer  "completed_count", default: 0, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false

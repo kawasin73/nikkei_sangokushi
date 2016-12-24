@@ -8,6 +8,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def create_params
-    params.permit([])
+    params.permit([:nick_name, :password, :password_confirmation])
   end
 end
