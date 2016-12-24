@@ -28,6 +28,15 @@ class ApplicationController < ActionController::Base
     @current_user ||= authenticate_token
   end
 
+  def current_access_token
+    if @current_access_token.present?
+      @current_access_token
+    else
+      token, _ = ActionController::HttpAuthentication::Token.token_and_options(self.request)
+      @current_access_token = AuthService.authenticate_token(token)
+    end
+  end
+
   def render_success(message)
     render json: { data: { message: message } }
   end

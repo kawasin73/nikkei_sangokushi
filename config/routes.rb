@@ -14,6 +14,10 @@ Rails.application.routes.draw do
       resources :users, only: [:create] do
         resources :found_reports, only: [:index]
       end
+      resource :token, controller: :access_tokens, only: [:create] do
+        put :refresh
+        delete :revoke
+      end
     end
   end
 end

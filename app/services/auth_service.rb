@@ -17,6 +17,10 @@ module AuthService
       AuthService::TokenAuthenticator.new(token).authenticated_token
     end
 
+    def invoke_token(nick_name, password)
+      AuthService::EmailAuthenticator.new(nick_name, password).invoke_token
+    end
+
     # refresh token
     # @param [String] refresh_token
     # @return [AccessToken] new access_token
