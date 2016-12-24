@@ -45,11 +45,12 @@ ActiveRecord::Schema.define(version: 20161223230737) do
   end
 
   create_table "stations", force: :cascade do |t|
-    t.integer  "line_id",    null: false
-    t.string   "name",       null: false
-    t.string   "name_kana",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "line_id",                 null: false
+    t.string   "name",                    null: false
+    t.string   "name_kana",               null: false
+    t.integer  "found_count", default: 0, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["line_id"], name: "index_stations_on_line_id", using: :btree
   end
 

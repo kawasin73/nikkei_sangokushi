@@ -4,6 +4,7 @@ class CreateStations < ActiveRecord::Migration[5.0]
       t.integer :line_id, null: false
       t.string :name, null: false
       t.string :name_kana, null: false
+      t.integer :found_count, null: false, default: 0
 
       t.timestamps
 
