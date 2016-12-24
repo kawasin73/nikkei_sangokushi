@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20161223230737) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["station_id"], name: "index_check_ins_on_station_id", using: :btree
+    t.index ["user_id", "station_id"], name: "index_check_ins_on_user_id_and_station_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_check_ins_on_user_id", using: :btree
   end
 

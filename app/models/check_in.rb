@@ -11,8 +11,9 @@
 #
 # Indexes
 #
-#  index_check_ins_on_station_id  (station_id)
-#  index_check_ins_on_user_id     (user_id)
+#  index_check_ins_on_station_id              (station_id)
+#  index_check_ins_on_user_id                 (user_id)
+#  index_check_ins_on_user_id_and_station_id  (user_id,station_id) UNIQUE
 #
 # Foreign Keys
 #
