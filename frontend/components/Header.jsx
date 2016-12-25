@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import CSSModules from 'react-css-modules'
 
 import styles from './Header.scss';
@@ -20,7 +21,7 @@ class Header extends Component {
           {
             this.props.authManager.isSignedIn() ? (
             <div>
-              <a>{this.props.authManager.currentUser.nickName}</a>
+              <Link to="/mypage">{this.props.authManager.currentUser.nickName}</Link>
               <a href="javascript:void(0)" onClick={this.props.onClickSignOut}>SignOut</a>
             </div>
             ) : (
