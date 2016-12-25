@@ -8,6 +8,7 @@ import thunk from 'redux-thunk'
 import _ from 'lodash'
 import 'babel-polyfill'
 
+import MetoroContainer from '../containers/MetoroContainer';
 import MainContainer from '../containers/MainContainer';
 import StationContainer from '../containers/StationController';
 import configureStore from '../stores/configureMainStore';
@@ -18,8 +19,10 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/stations/:stationId" component={StationContainer}/>
-      <Route path="*" component={MainContainer}/>
+      <Route path="/" component={MetoroContainer}>
+        <IndexRoute component={MainContainer} />
+        <Route path="/stations/:stationId" component={StationContainer}/>
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('content')

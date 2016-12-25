@@ -6,7 +6,7 @@ const keyRefreshToken = "AuthManager/refreshToken";
 class AuthManager {
   constructor() {
     this.accessToken = localStorage.getItem(keyAccessToken);
-    this.refreshToken = localStorage.setItem(keyRefreshToken);
+    this.refreshToken = localStorage.getItem(keyRefreshToken);
     this.client = createAuthClient(this.accessToken);
   }
 
