@@ -37,9 +37,10 @@ export function signUp(nickName, password) {
         dispatch(setCurrentUser(user))
       }
     } catch (error) {
-      // TODO: error handling
+      console.log(error);
     }
     dispatch(setLoading(false));
+    dispatch(hideModal());
   };
 }
 
@@ -53,8 +54,17 @@ export function signIn(nickName, password) {
       }
     } catch (error) {
       // TODO: error handling
+      console.log(error);
     }
     dispatch(setLoading(false));
+    dispatch(hideModal());
+  };
+}
+
+export function signOut() {
+  return async(dispatch) => {
+    await request.signOut();
+    dispatch(setCurrentUser(null));
   };
 }
 

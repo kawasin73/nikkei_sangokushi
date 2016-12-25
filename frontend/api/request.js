@@ -20,21 +20,26 @@ export async function getStations() {
 export async function signUp(nickName, password) {
   const response = await requestSignUp(nickName, password);
   const data = response.data.data;
-  const accessToken = data.accessToken.token;
-  const refreshToken = data.accessToken.refresh_token;
+  const accessToken = data.access_token.token;
+  const refreshToken = data.access_token.refresh_token;
   const user = User.fromJS(data.user);
   auth.saveToken(accessToken, refreshToken);
-  auth.saveNickName(user.nickName);
+  auth.saveCurrentUser(user);
   return user;
 }
 
 export async function signIn(nickName, password) {
   const response = await requestLogin(nickName, password);
   const data = response.data.data;
-  const accessToken = data.accessToken.token;
-  const refreshToken = data.accessToken.refresh_token;
+  const accessToken = data.access_token.token;
+  const refreshToken = data.access_token.refresh_token;
   const user = User.fromJS(data.user);
   auth.saveToken(accessToken, refreshToken);
-  auth.saveNickName(user.nickName);
+  auth.saveCurrentUser(user);
   return user;
+}
+
+export async function signOut() {
+  auth.signOut()
+  return null
 }

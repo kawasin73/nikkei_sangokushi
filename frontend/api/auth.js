@@ -1,15 +1,24 @@
 import { createAuthClient } from './client';
 
+import User from '../records/user';
+
 const keyAccessToken = "AuthManager/accessToken";
 const keyRefreshToken = "AuthManager/refreshToken";
+const keyId = "AuthManager/id";
 const keyNickName = "AuthManager/nickName";
 
 class AuthManager {
   constructor() {
     this.accessToken = localStorage.getItem(keyAccessToken);
     this.refreshToken = localStorage.getItem(keyRefreshToken);
-    this.nickName = localStorage.getItem(keyNickName);
+    if (localStorage.getItem(keyId) !== null) {
+      this.user = new User({id: localStorage.getItem(keyId), nickName: localStorage.getItem(keyNickName)});
+    } else {
+      this.user = null;
+    }
     this.client = createAuthClient(this.accessToken);
+    console.log('on construct AuthManager')
+    console.log('this.accessToken', this.accessToken);
   }
 
   saveToken(accessToken, refreshToken) {
@@ -20,9 +29,24 @@ class AuthManager {
     localStorage.setItem(keyRefreshToken, refreshToken);
   }
 
-  saveNickName(nickName) {
-    this.nickName = nickName
-    localStorage.setItem(keyNickName, nickName)
+  saveCurrentUser(user) {
+    this.user = user;
+    let id;
+    let nickName;
+    if (user !== null) {
+      id = user.id;
+      nickName = user.nickName;
+    } else {
+      id = null;
+      nickName = null;
+    }
+    localStorage.setItem(keyId, id);
+    localStorage.setItem(keyNickName, nickName);
+  }
+
+  signOut() {
+    this.saveToken(null, null);
+    this.saveCurrentUser(null);
   }
 
   isSignedIn() {
