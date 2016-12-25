@@ -9,6 +9,7 @@ import {
 import auth from './auth';
 
 import Station from '../records/station';
+import User from '../records/user';
 
 export async function getStations() {
   const response = await requestGetStations();
@@ -21,8 +22,10 @@ export async function signUp(nickName, password) {
   const data = response.data.data;
   const accessToken = data.accessToken.token;
   const refreshToken = data.accessToken.refresh_token;
+  const user = User.fromJS(data.user);
   auth.saveToken(accessToken, refreshToken);
-  return true
+  auth.saveNickName(user.nickName);
+  return user;
 }
 
 export async function signIn(nickName, password) {
@@ -30,6 +33,8 @@ export async function signIn(nickName, password) {
   const data = response.data.data;
   const accessToken = data.accessToken.token;
   const refreshToken = data.accessToken.refresh_token;
+  const user = User.fromJS(data.user);
   auth.saveToken(accessToken, refreshToken);
-  return true
+  auth.saveNickName(user.nickName);
+  return user;
 }

@@ -5,7 +5,7 @@ const Actions = {
   SHOW_SIGN_UP_MODAL: 'auth/show_sign_up_modal',
   SHOW_SIGN_IN_MODAL: 'auth/show_sign_in_modal',
   HIDE_MODAL: 'auth/hide_modal',
-  SET_IS_SIGNED_IN: 'auth/set_is_signed_in',
+  SET_CURRENT_USER: 'auth/set_current_user',
 };
 
 export default Actions;
@@ -29,12 +29,12 @@ export function hideModal() {
 }
 
 export function signUp(nickName, password) {
-  return async (dispatch) => {
+  return async(dispatch) => {
     dispatch(setLoading(true));
     try {
-      const result = await request.signUp(nickName, password);
-      if (result) {
-        dispatch(setIsSignedIn(true))
+      const user = await request.signUp(nickName, password);
+      if (user) {
+        dispatch(setCurrentUser(user))
       }
     } catch (error) {
       // TODO: error handling
@@ -44,12 +44,12 @@ export function signUp(nickName, password) {
 }
 
 export function signIn(nickName, password) {
-  return async (dispatch) => {
+  return async(dispatch) => {
     dispatch(setLoading(true));
     try {
-      const result = await request.signIn(nickName, password);
-      if (result) {
-        dispatch(setIsSignedIn(true))
+      const user = await request.signIn(nickName, password);
+      if (user) {
+        dispatch(setCurrentUser(user))
       }
     } catch (error) {
       // TODO: error handling
@@ -65,10 +65,9 @@ function setLoading(loading) {
   };
 }
 
-function setIsSignedIn(isSignedIn) {
+function setCurrentUser(user) {
   return {
-    type: Actions.SET_IS_SIGNED_IN,
-    isSignedIn,
+    type: Actions.SET_CURRENT_USER,
+    user,
   };
 }
-

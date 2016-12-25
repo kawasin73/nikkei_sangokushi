@@ -1,10 +1,13 @@
 import { Record } from 'immutable';
 
 const _AuthManager = Record({
-  isSignedIn: false,
+  currentUser: null,
   showSignInModal: false,
   showSignUpModal: false,
 });
 
 export default class AuthManager extends _AuthManager {
+  isSignedIn() {
+    return this.currentUser !== null;
+  }
 }

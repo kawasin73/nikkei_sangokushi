@@ -7,7 +7,7 @@ import auth from '../api/auth';
 
 import AuthManager from '../records/authManager';
 
-function authManager(state = new AuthManager({ isSignedIn: auth.isSignedIn() }), action) {
+function authManager(state = new AuthManager({ isSignedIn: auth.isSignedIn(), nickName: auth.nickName }), action) {
   switch (action.type) {
     case AuthActions.SHOW_SIGN_IN_MODAL:
       return state.set('showSignInModal', true).set('showSignUpModal', false);
@@ -15,8 +15,8 @@ function authManager(state = new AuthManager({ isSignedIn: auth.isSignedIn() }),
       return state.set('showSignInModal', false).set('showSignUpModal', true);
     case AuthActions.HIDE_MODAL:
       return state.set('showSignInModal', false).set('showSignUpModal', false);
-    case AuthActions.SET_IS_SIGNED_IN:
-      return state.set('isSignedIn', action.isSignedIn);
+    case AuthActions.SET_CURRENT_USER:
+      return state.set('currentUser', action.user);
     default:
       return state;
   }

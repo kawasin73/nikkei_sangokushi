@@ -3,7 +3,12 @@ class Api::V1::AccessTokensController < ApplicationController
 
   def create
     @access_token = AuthService.invoke_token(params[:nick_name], params[:password])
-    render_error('failed to invoke token', status: :unauthorized) if @access_token.blank?
+    if @access_token.present?
+      @user = @access_token.user
+      render template: 'api/v1/users/create'
+    else
+      render_error('failed to invoke token', status: :unauthorized)
+    end
   end
 
   def refresh
