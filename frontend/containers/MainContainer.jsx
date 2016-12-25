@@ -19,7 +19,7 @@ class MainContainer extends Component {
         {
           this.props.stations.map((station) => {
             return (
-              <p key={station.id}>{station.name}</p>
+              <p key={station.id}>{station.name}: {station.line.name}</p>
             );
           })
         }
@@ -30,7 +30,7 @@ class MainContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    stations: state.stations.stations,
+    stations: state.station.stations,
   }
 };
 
