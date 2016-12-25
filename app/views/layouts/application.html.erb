@@ -7,6 +7,10 @@
 
 <body>
 <div id="content"></div>
-<%= javascript_include_tag 'application' %>
+<% if Rails.env.development? %>
+    <script src="http://localhost:8080/assets/build/main.js"></script>
+<% else %>
+    <%= javascript_include_tag 'application' %>
+<% end %>
 </body>
 </html>

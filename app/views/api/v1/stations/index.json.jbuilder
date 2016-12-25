@@ -1,3 +1,5 @@
 json.data do
-  json.array! @stations, partial: 'station', as: :station
+  json.stations do
+    json.array! @stations, partial: 'station', as: :station
+  end
 end
