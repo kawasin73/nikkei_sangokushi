@@ -3,13 +3,16 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' }, constraints: { format: :json } do
     namespace :v1 do
-      resources :check_ins, only: [:index, :create] do
-        delete '/', action: :destroy
-      end
+      resources :check_ins, only: [:index, :create]
       resources :found_reports, only: [:create, :update, :destroy]
 
       resources :stations, only: [:index] do
         resources :found_reports, only: [:index]
+        resources :check_ins, only: [] do
+          collection do
+            delete '/', action: :destroy
+          end
+        end
       end
       resources :users, only: [:create] do
         resources :found_reports, only: [:index]

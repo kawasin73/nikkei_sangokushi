@@ -22,10 +22,6 @@ export function createAuthClient(accessToken) {
   });
 }
 
-export function requestGetStations() {
-  return client.get('/stations', {});
-}
-
 export function requestRefreshToken(refreshToken) {
   return client.put('/token/refresh', {
     refresh_token: refreshToken,
@@ -47,6 +43,22 @@ export function requestSignUp(nickName, password) {
   });
 }
 
+export function requestGetStations() {
+  return client.get('/stations', {});
+}
+
 export function requestGetCheckIns() {
   return auth.client.get('/check_ins', {});
+}
+
+export function requestPostCheckIn(stationId) {
+  return auth.client.post('/check_ins', {
+    station_id: stationId,
+  });
+}
+
+export function requestDeleteCheckIn(stationId) {
+  return auth.client.delete(`/stations/${stationId}/check_ins`, {
+    station_id: stationId,
+  });
 }

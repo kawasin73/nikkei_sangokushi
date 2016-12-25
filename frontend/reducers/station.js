@@ -12,6 +12,14 @@ function stations(state = new List(), action) {
       return state.map((station) => {
         return station.set('haveCheckedIn', ids.includes(station.id));
       });
+    case StationActions.REPLACE_STATION:
+      return state.map((station) => {
+        if (station.id === action.station.id) {
+          return action.station;
+        } else {
+          return station;
+        }
+      });
     default:
       return state;
   }
@@ -26,6 +34,16 @@ function checkIns(state = new List(), action) {
   }
 }
 
+function isInitialized(state = false, action) {
+  switch (action.type) {
+    case StationActions.INITIALIZED:
+      return true;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   stations,
+  isInitialized,
 })

@@ -16,6 +16,10 @@ class MetoroContainer extends Component {
     this.props.loadStations();
   }
 
+  canShowChildren() {
+    return this.props.stationManager.isInitialized;
+  }
+
   onClickSignIn() {
     this.props.showSignInModel();
   }
@@ -49,7 +53,7 @@ class MetoroContainer extends Component {
           onClickSignUp={this.onClickSignUp.bind(this)}
           onClickSignOut={this.onClickSignOut.bind(this)}
         />
-        {this.props.children}
+        { this.canShowChildren() ? (this.props.children) : (null)}
         <AuthModal
           authManager={this.props.authManager}
           onSignIn={this.onSignIn.bind(this)}
@@ -64,6 +68,7 @@ class MetoroContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     authManager: state.main.authManager,
+    stationManager: state.station,
     stations: state.station.stations,
   }
 };

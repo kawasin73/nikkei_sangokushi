@@ -1,9 +1,11 @@
 const Actions = {
   SET_STATIONS: 'station/set_stations',
   REFRESH_CHECK_IN: 'station/refresh_check_in',
+  REPLACE_STATION: 'station/replace_station',
+  INITIALIZED: 'station/initialized',
 };
 
-import { getStations, getCheckIns } from '../api/request';
+import { getStations, getCheckIns, checkInStation, checkOutStation } from '../api/request';
 
 export default Actions
 
@@ -12,7 +14,14 @@ export function loadStations() {
     console.log("loadStations");
     const stations = await getStations();
     dispatch(setStations(stations));
+    dispatch(initialized());
   };
+}
+
+function initialized() {
+  return {
+    type: Actions.INITIALIZED,
+  }
 }
 
 export function refreshCheckIns() {
@@ -34,5 +43,36 @@ function setStations(stations) {
   return {
     type: Actions.SET_STATIONS,
     stations: stations,
+  };
+}
+
+export function createCheckIn(station) {
+  return async(dispatch) => {
+    const checkedInStation = station.set('haveCheckedIn', true);
+    dispatch(replaceStation(checkedInStation));
+    try {
+      await checkInStation(station);
+    } catch (error) {
+      dispatch(replaceStation(station));
+    }
+  }
+}
+
+export function deleteCheckIn(station) {
+  return async(dispatch) => {
+    const checkedOutStation = station.set('haveCheckedIn', false);
+    dispatch(replaceStation(checkedOutStation));
+    try {
+      await checkOutStation(station);
+    } catch (error) {
+      dispatch(replaceStation(station));
+    }
+  }
+}
+
+function replaceStation(station) {
+  return {
+    type: Actions.REPLACE_STATION,
+    station,
   };
 }
