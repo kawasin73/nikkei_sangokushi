@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { showSignUpModel, showSignInModel, signIn, signUp, signOut } from '../actions/auth';
+import { showSignUpModel, showSignInModel, hideModal, signIn, signUp, signOut } from '../actions/auth';
 import { loadStations } from '../actions/station';
 
 import Header from '../components/Header';
@@ -36,6 +36,10 @@ class MetoroContainer extends Component {
     this.props.signUp(nickName, password);
   }
 
+  onRequestCloseAuthModal() {
+    this.props.hideModal();
+  }
+
   render() {
     return (
       <div>
@@ -50,6 +54,7 @@ class MetoroContainer extends Component {
           authManager={this.props.authManager}
           onSignIn={this.onSignIn.bind(this)}
           onSignUp={this.onSignUp.bind(this)}
+          onRequestClose={this.onRequestCloseAuthModal.bind(this)}
         />
       </div>
     );
@@ -68,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
     loadStations,
     showSignUpModel,
     showSignInModel,
+    hideModal,
     signIn,
     signUp,
     signOut,

@@ -11,6 +11,7 @@ class AuthModal extends Component {
     authManager: PropTypes.object.isRequired,
     onSignIn: PropTypes.func.isRequired,
     onSignUp: PropTypes.func.isRequired,
+    onRequestClose: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -70,7 +71,7 @@ class AuthModal extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.isOpen()} contentLabel="AuthModal">
+      <Modal isOpen={this.isOpen()} contentLabel="AuthModal" onRequestClose={this.props.onRequestClose}>
         <div styleName="base">
           <p>id</p>
           <input onChange={this.onChangeNickName.bind(this)} value={this.state.nickName}/>

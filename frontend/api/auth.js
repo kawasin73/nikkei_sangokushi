@@ -12,7 +12,7 @@ class AuthManager {
     this.accessToken = localStorage.getItem(keyAccessToken);
     this.refreshToken = localStorage.getItem(keyRefreshToken);
     if (localStorage.getItem(keyId) !== null) {
-      this.user = new User({id: localStorage.getItem(keyId), nickName: localStorage.getItem(keyNickName)});
+      this.user = new User({ id: localStorage.getItem(keyId), nickName: localStorage.getItem(keyNickName) });
     } else {
       this.user = null;
     }
@@ -31,22 +31,18 @@ class AuthManager {
 
   saveCurrentUser(user) {
     this.user = user;
-    let id;
-    let nickName;
-    if (user !== null) {
-      id = user.id;
-      nickName = user.nickName;
-    } else {
-      id = null;
-      nickName = null;
-    }
-    localStorage.setItem(keyId, id);
-    localStorage.setItem(keyNickName, nickName);
+    localStorage.setItem(keyId, user.id);
+    localStorage.setItem(keyNickName, user.nickName);
   }
 
   signOut() {
-    this.saveToken(null, null);
-    this.saveCurrentUser(null);
+    this.accessToken = null;
+    this.refreshToken = null;
+    this.user = null;
+    localStorage.removeItem(keyId);
+    localStorage.removeItem(keyNickName);
+    localStorage.removeItem(keyAccessToken);
+    localStorage.removeItem(keyRefreshToken);
   }
 
   isSignedIn() {
