@@ -16,13 +16,17 @@ class MainContainer extends Component {
     return (
       <div>
         hello world3
+        <ul>
         {
           this.props.stations.map((station) => {
             return (
-              <p key={station.id}>{station.name}: {station.line.name}</p>
+              <li key={station.id}>
+              <Link to={`/stations/${station.id}`}>{station.name}: {station.line.name}</Link>
+              </li>
             );
           })
         }
+        </ul>
       </div>
     );
   }
