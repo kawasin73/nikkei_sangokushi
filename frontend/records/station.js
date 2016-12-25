@@ -6,6 +6,7 @@ const _Station = Record({
   name: "",
   nameKana: "",
   line: new Line(),
+  haveCheckedIn: false,
 });
 
 export default class Station extends _Station {

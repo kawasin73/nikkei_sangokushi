@@ -3,7 +3,13 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import {refreshCheckIns} from '../actions/station';
+
 class MyPageContainer extends Component {
+
+  componentDidMount() {
+    this.props.refreshCheckIns();
+  }
 
   render() {
     return (
@@ -21,6 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
+    refreshCheckIns,
   }, dispatch)
 };
 

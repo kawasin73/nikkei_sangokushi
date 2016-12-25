@@ -17,8 +17,7 @@ class AuthManager {
       this.user = null;
     }
     this.client = createAuthClient(this.accessToken);
-    console.log('on construct AuthManager')
-    console.log('this.accessToken', this.accessToken);
+    console.log('on construct AuthManager');
   }
 
   saveToken(accessToken, refreshToken) {

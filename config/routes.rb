@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' }, constraints: { format: :json } do
     namespace :v1 do
-      resources :check_ins, only: [:create] do
+      resources :check_ins, only: [:index, :create] do
         delete '/', action: :destroy
       end
       resources :found_reports, only: [:create, :update, :destroy]

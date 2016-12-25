@@ -1,6 +1,10 @@
 class Api::V1::CheckInsController < ApplicationController
-  before_action :authenticate, only: [:create, :destroy]
+  before_action :authenticate, only: [:index, :create, :destroy]
   before_action :set_station, only: [:create, :destroy]
+
+  def index
+    @check_ins = current_user.check_ins.all
+  end
 
   def create
     current_user.check_in!(@station)

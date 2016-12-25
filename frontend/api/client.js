@@ -46,3 +46,7 @@ export function requestSignUp(nickName, password) {
     password_confirmation: password,
   });
 }
+
+export function requestGetCheckIns() {
+  return auth.client.get('/check_ins', {});
+}
