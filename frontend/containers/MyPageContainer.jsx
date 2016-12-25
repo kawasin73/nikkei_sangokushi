@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-class MyPageController extends Component {
+class MyPageContainer extends Component {
 
   render() {
     return (
@@ -27,4 +27,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyPageController)
+)(MyPageContainer)
