@@ -53,7 +53,7 @@ class MetoroContainer extends Component {
           onClickSignUp={this.onClickSignUp.bind(this)}
           onClickSignOut={this.onClickSignOut.bind(this)}
         />
-        { this.canShowChildren() ? (this.props.children) : (null)}
+        { this.canShowChildren() ? (this.props.children) : (<p>now loading...</p>)}
         <AuthModal
           authManager={this.props.authManager}
           onSignIn={this.onSignIn.bind(this)}

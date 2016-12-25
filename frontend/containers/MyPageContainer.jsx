@@ -8,7 +8,25 @@ import { refreshCheckIns, createCheckIn, deleteCheckIn } from '../actions/statio
 class MyPageContainer extends Component {
 
   componentDidMount() {
+    if (!this.checkSignState(this.props)) {
+      return;
+    }
     this.props.refreshCheckIns();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+    this.checkSignState(nextProps);
+  }
+
+  checkSignState(props) {
+    console.log("props.authManager.isSignedIn()", props.authManager.isSignedIn());
+    if (!props.authManager.isSignedIn()) {
+      this.context.router.push("/");
+      return false
+    } else {
+      return true;
+    }
   }
 
   onClickCheckIn(station) {
@@ -45,8 +63,13 @@ class MyPageContainer extends Component {
   }
 }
 
+MyPageContainer.contextTypes = {
+  router: PropTypes.object.isRequired,
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
+    authManager: state.main.authManager,
     stations: state.station.stations,
   }
 };
