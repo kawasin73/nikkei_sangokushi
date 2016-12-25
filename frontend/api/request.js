@@ -7,6 +7,7 @@ import {
   requestGetCheckIns,
   requestPostCheckIn,
   requestDeleteCheckIn,
+  requestPostFoundReport,
 } from './client';
 
 import auth from './auth';
@@ -61,5 +62,10 @@ export async function checkInStation(station) {
 
 export async function checkOutStation(station) {
   const response = await requestDeleteCheckIn(station.id);
+  return true;
+}
+
+export async function postFoundReport(stationId, comment, image) {
+  const response = await requestPostFoundReport(stationId, comment, image);
   return true;
 }

@@ -12,6 +12,8 @@ import MetoroContainer from '../containers/MetoroContainer';
 import MainContainer from '../containers/MainContainer';
 import StationContainer from '../containers/StationContainer';
 import MyPageContainer from '../containers/MyPageContainer';
+import ReportNewContainer from '../containers/ReportNewContainer';
+
 import configureStore from '../stores/configureMainStore';
 
 const store = configureStore();
@@ -23,6 +25,7 @@ ReactDOM.render(
       <Route path="/" component={MetoroContainer}>
         <IndexRoute component={MainContainer}/>
         <Route path="/stations/:stationId" component={StationContainer}/>
+        <Route path="/stations/:stationId/reports/new" component={ReportNewContainer} />
         <Route path="/mypage" component={MyPageContainer}/>
       </Route>
     </Router>

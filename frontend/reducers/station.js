@@ -43,7 +43,16 @@ function isInitialized(state = false, action) {
   }
 }
 
+function isSubmittingReport(state = false, action) {
+  switch (action.type) {
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   stations,
   isInitialized,
+  isSubmittingReport,
 })

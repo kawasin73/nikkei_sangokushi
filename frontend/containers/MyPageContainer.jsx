@@ -56,7 +56,11 @@ class MyPageContainer extends Component {
       <tr key={`station-${station.id}`}>
         <td>{station.name}</td>
         <td>{station.line.name}</td>
-        <td><input type="checkbox" checked={station.haveCheckedIn} onChange={this.onClickCheckIn.bind(this, station)}/>
+        <td>
+          <input type="checkbox" checked={station.haveCheckedIn} onChange={this.onClickCheckIn.bind(this, station)}/>
+        </td>
+        <td>
+          <Link to={`/stations/${station.id}/reports/new`}>発見!</Link>
         </td>
       </tr>
     )

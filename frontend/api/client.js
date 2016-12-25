@@ -62,3 +62,13 @@ export function requestDeleteCheckIn(stationId) {
     station_id: stationId,
   });
 }
+
+export function requestPostFoundReport(stationId, comment, image) {
+  let data = new FormData();
+  data.append('station_id', stationId);
+  data.append('comment', comment);
+  if (image) {
+    data.append('image', image);
+  }
+  return auth.client.post('/found_reports', data);
+}

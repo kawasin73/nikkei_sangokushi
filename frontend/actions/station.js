@@ -3,9 +3,16 @@ const Actions = {
   REFRESH_CHECK_IN: 'station/refresh_check_in',
   REPLACE_STATION: 'station/replace_station',
   INITIALIZED: 'station/initialized',
+  SET_SUBMITTING: 'station/set_submitting',
 };
 
-import { getStations, getCheckIns, checkInStation, checkOutStation } from '../api/request';
+import {
+  getStations,
+  getCheckIns,
+  checkInStation,
+  checkOutStation,
+  postFoundReport
+} from '../api/request';
 
 export default Actions
 
@@ -75,4 +82,23 @@ function replaceStation(station) {
     type: Actions.REPLACE_STATION,
     station,
   };
+}
+
+export function createFoundReport(stationId, comment, image) {
+  return async(dispatch) => {
+    dispatch(setSubmitting(true));
+    try {
+      const res = postFoundReport(stationId, comment, image);
+    } catch (error) {
+      console.log(error);
+    }
+    dispatch(setSubmitting(false));
+  }
+}
+
+function setSubmitting(value) {
+  return {
+    type: Actions.SET_SUBMITTING,
+    value,
+  }
 }

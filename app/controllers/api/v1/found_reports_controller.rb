@@ -39,11 +39,11 @@ class Api::V1::FoundReportsController < ApplicationController
   private
 
   def create_params
-    params.permit!([:image, :comment])
+    params.permit([:image, :comment])
   end
 
   def update_params
-    params.permit!([:image, :comment])
+    params.permit([:image, :comment])
   end
 
   def set_found_report
