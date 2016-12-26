@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { refreshCheckIns, refreshFoundReports } from '../actions/station';
+import { initialized } from '../actions/myPage';
 
 class MyPageContainer extends Component {
 
@@ -11,8 +12,13 @@ class MyPageContainer extends Component {
     if (!this.checkSignState(this.props)) {
       return;
     }
-    this.props.refreshCheckIns();
-    this.props.refreshFoundReports();
+    this.init();
+  }
+
+  async init() {
+    await this.props.refreshCheckIns();
+    await this.props.refreshFoundReports();
+    await this.props.initialized();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,7 +39,13 @@ class MyPageContainer extends Component {
   render() {
     return (
       <div>
-        { this.props.children }
+        {
+          this.props.myPageManager.isInitialized ? (
+            this.props.children
+          ) : (
+            <p>Now Loading...</p>
+          )
+        }
       </div>
     );
   }
@@ -46,6 +58,7 @@ MyPageContainer.contextTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     authManager: state.main.authManager,
+    myPageManager: state.main.myPageManager,
     stations: state.station.stations,
   }
 };
@@ -54,6 +67,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     refreshCheckIns,
     refreshFoundReports,
+    initialized,
   }, dispatch)
 };
 

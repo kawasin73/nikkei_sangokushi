@@ -44,9 +44,10 @@ class ReportNewContainer extends Component {
   }
 
   render() {
+    const station = this.station();
     return (
       <div>
-        new{this.props.params.stationId}
+        <h1>発見報告: {station.name} - {station.line.name}</h1>
         <p>コメント</p>
         <textarea value={this.state.comment} onChange={this.onChangeComment.bind(this)}/>
         <p>画像</p>

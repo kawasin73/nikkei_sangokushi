@@ -2,10 +2,12 @@ import { combineReducers } from 'redux';
 import { List } from 'immutable';
 
 import AuthActions from '../actions/auth';
+import MyPageActions from '../actions/myPage';
 
 import auth from '../api/auth';
 
 import AuthManager from '../records/authManager';
+import MyPageManager from '../records/mypageManager';
 
 function authManager(state = new AuthManager({ isSignedIn: auth.isSignedIn(), currentUser: auth.user }), action) {
   switch (action.type) {
@@ -22,6 +24,18 @@ function authManager(state = new AuthManager({ isSignedIn: auth.isSignedIn(), cu
   }
 }
 
+function myPageManager(state = new MyPageManager(), action) {
+  switch (action.type) {
+    case MyPageActions.INITIALIZED: {
+      return state.set('isInitialized', true);
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 export default combineReducers({
   authManager,
+  myPageManager,
 })
