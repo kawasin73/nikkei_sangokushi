@@ -5,3 +5,25 @@ $metoro_color: #00a3d9;
   color: white;
   background-color: $metoro_color;
 }
+
+.title {
+  float: left;
+  margin: 20px 30px;
+  color: white;
+  &:hover {
+    color: white;
+  }
+}
+
+.right {
+  float: right;
+  margin: 20px 30px;
+}
+
+.button {
+  margin: 0 20px;
+  color: white;
+  &:hover {
+    color: white;
+  }
+}

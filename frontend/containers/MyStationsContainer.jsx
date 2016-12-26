@@ -22,6 +22,12 @@ class MyStationsContainer extends Component {
     return (
       <div>
         <table>
+          <thead>
+          <th>駅名</th>
+          <th>路線名</th>
+          <th>確認済み?</th>
+          <th>発見?</th>
+          </thead>
           <tbody>
           {
             this.props.stations.map((station) => this.renderStation(station))

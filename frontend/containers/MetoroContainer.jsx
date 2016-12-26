@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import styles from './MetoroContainer.scss';
+
 import { showSignUpModel, showSignInModel, hideModal, signIn, signUp, signOut } from '../actions/auth';
 import { loadStations } from '../actions/station';
 
@@ -53,7 +55,9 @@ class MetoroContainer extends Component {
           onClickSignUp={this.onClickSignUp.bind(this)}
           onClickSignOut={this.onClickSignOut.bind(this)}
         />
-        { this.canShowChildren() ? (this.props.children) : (<p>now loading...</p>)}
+        <div className={styles["base"]}>
+          { this.canShowChildren() ? (this.props.children) : (<p>now loading...</p>)}
+        </div>
         <AuthModal
           authManager={this.props.authManager}
           onSignIn={this.onSignIn.bind(this)}

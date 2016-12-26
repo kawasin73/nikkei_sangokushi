@@ -3,8 +3,6 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { loadStations } from '../actions/station';
-
 class MainContainer extends Component {
 
   componentDidMount() {
@@ -13,18 +11,26 @@ class MainContainer extends Component {
   render() {
     return (
       <div>
-        hello world3
-        <ul>
-        {
-          this.props.stations.map((station) => {
-            return (
-              <li key={station.id}>
-              <Link to={`/stations/${station.id}`}>{station.name}: {station.line.name} {station.foundCount}</Link>
-              </li>
-            );
-          })
-        }
-        </ul>
+        <table>
+          <thead>
+          <th>駅名</th>
+          <th>路線名</th>
+          <th>広告の発見数</th>
+          </thead>
+          <tbody>
+          {
+            this.props.stations.map((station) => {
+              return (
+                <tr key={station.id}>
+                  <td><Link to={`/stations/${station.id}`}>{station.name}</Link></td>
+                  <td>{station.line.name}</td>
+                  <td>{station.foundCount}</td>
+                </tr>
+              );
+            })
+          }
+          </tbody>
+        </table>
       </div>
     );
   }

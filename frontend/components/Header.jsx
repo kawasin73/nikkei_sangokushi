@@ -18,16 +18,17 @@ class Header extends Component {
     return (
       <div styleName="base">
         <div>
+          <Link styleName="title" to="/">東京メトロ 日経新聞三国志広告の旅</Link>
           {
             this.props.authManager.isSignedIn() ? (
-            <div>
-              <Link to="/mypage">{this.props.authManager.currentUser.nickName}</Link>
-              <a href="javascript:void(0)" onClick={this.props.onClickSignOut}>SignOut</a>
-            </div>
+              <div styleName="right">
+                <Link styleName="button" to="/mypage">{this.props.authManager.currentUser.nickName}</Link>
+                <a styleName="button" href="javascript:void(0)" onClick={this.props.onClickSignOut}>SignOut</a>
+              </div>
             ) : (
-              <div>
-                <a href="javascript:void(0)" onClick={this.props.onClickSignUp}>SignUp</a>
-                <a href="javascript:void(0)" onClick={this.props.onClickSignIn}>SignIn</a>
+              <div styleName="right">
+                <a styleName="button" href="javascript:void(0)" onClick={this.props.onClickSignUp}>SignUp</a>
+                <a styleName="button" href="javascript:void(0)" onClick={this.props.onClickSignIn}>SignIn</a>
               </div>
             )
           }

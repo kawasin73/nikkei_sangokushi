@@ -44,6 +44,11 @@ class StationContainer extends Component {
   renderReports() {
     return (
       <table>
+        <thead>
+        <th>画像</th>
+        <th>コメント</th>
+        <th>ユーザーID</th>
+        </thead>
         <tbody>
         {
           this.props.reports.map((report) => {
