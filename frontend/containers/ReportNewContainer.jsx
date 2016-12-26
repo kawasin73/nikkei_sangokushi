@@ -52,7 +52,7 @@ class ReportNewContainer extends Component {
         <textarea value={this.state.comment} onChange={this.onChangeComment.bind(this)}/>
         <p>画像</p>
         <input type="file" onChange={this.onChangeImage.bind(this)}/>
-        <button onClick={this.onSubmit.bind(this)}>登録</button>
+        <button onClick={this.onSubmit.bind(this)} disabled={this.props.station.isSubmittingReport}>登録</button>
       </div>
     );
   }
@@ -64,6 +64,7 @@ ReportNewContainer.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    station: state.station,
     stations: state.station.stations,
   }
 };

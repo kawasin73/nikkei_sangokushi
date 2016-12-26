@@ -64,8 +64,8 @@ class ReportEditContainer extends Component {
         <p>画像</p>
         <img src={this.report().imageUrl}/>
         <input type="file" onChange={this.onChangeImage.bind(this)}/>
-        <button onClick={this.onSubmit.bind(this)}>更新</button>
-        <button onClick={this.onDelete.bind(this)}>削除</button>
+        <button onClick={this.onSubmit.bind(this)} disabled={this.props.station.isSubmittingReport}>更新</button>
+        <button onClick={this.onDelete.bind(this)} disabled={this.props.station.isSubmittingReport}>削除</button>
       </div>
     );
   }
@@ -77,6 +77,7 @@ ReportEditContainer.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    station: state.station,
     stations: state.station.stations,
     foundReports: state.station.foundReports,
   }
