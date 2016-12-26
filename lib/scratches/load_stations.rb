@@ -46,7 +46,7 @@ class StationLoader
 
   def model_for_line(line)
     line_id = line[0]
-    line_name = line[2]
+    line_name = line[2].gsub('東京メトロ', '')
     line_name_kana = line[3]
     <<"EOS"
 Line.seed do |line|
