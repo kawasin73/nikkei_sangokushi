@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_found_reports_on_check_in_id  (check_in_id)
+#  index_found_reports_on_check_in_id  (check_in_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -19,7 +19,7 @@
 #
 
 class FoundReport < ApplicationRecord
-  belongs_to :check_in, inverse_of: :found_reports
+  belongs_to :check_in, inverse_of: :found_report
 
   delegate :station, :user, to: :check_in
 

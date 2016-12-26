@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224004615) do
+ActiveRecord::Schema.define(version: 20161226164049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20161224004615) do
     t.text     "comment"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["check_in_id"], name: "index_found_reports_on_check_in_id", using: :btree
+    t.index ["check_in_id"], name: "index_found_reports_on_check_in_id", unique: true, using: :btree
   end
 
   create_table "lines", force: :cascade do |t|

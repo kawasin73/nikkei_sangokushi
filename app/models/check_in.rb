@@ -27,7 +27,7 @@ class CheckIn < ApplicationRecord
 
   belongs_to :user, inverse_of: :check_ins
   belongs_to :station, inverse_of: :check_ins
-  has_many :found_reports, inverse_of: :check_in
+  has_one :found_report, inverse_of: :check_in
 
   def can_delete?
     found_reports.count == 0
