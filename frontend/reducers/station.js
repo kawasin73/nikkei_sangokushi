@@ -93,6 +93,20 @@ function foundReports(state = new List(), action) {
   }
 }
 
+function stationReports(state = new List(), action) {
+  switch (action.type) {
+    case StationActions.CLEAR_STATION_REPORTS: {
+      return new List();
+    }
+    case StationActions.SET_STATION_REPORTS: {
+      return action.reports;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 function isInitialized(state = false, action) {
   switch (action.type) {
     case StationActions.INITIALIZED: {
@@ -119,6 +133,7 @@ export default combineReducers({
   stations,
   checkIns,
   foundReports,
+  stationReports,
   isInitialized,
   isSubmittingReport,
 })

@@ -8,6 +8,8 @@ const Actions = {
   SET_SUBMITTING: 'station/set_submitting',
   ADD_FOUND_REPORT: 'station/add_found_report',
   REMOVE_FOUND_REPORT: 'station/remove_found_report',
+  CLEAR_STATION_REPORTS: 'station/clear_station_reports',
+  SET_STATION_REPORTS: 'station/set_station_reports',
 };
 
 import * as request from '../api/request';
@@ -161,5 +163,29 @@ function removeFoundReport(report) {
   return {
     type: Actions.REMOVE_FOUND_REPORT,
     report,
-  }
+  };
+}
+
+export function loadStationReports(stationId) {
+  return async(dispatch) => {
+    try {
+      const reports = await request.getStationReports(stationId);
+      dispatch(setStationReports(reports));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function clearStationReports() {
+  return {
+    type: Actions.CLEAR_STATION_REPORTS,
+  };
+}
+
+function setStationReports(reports) {
+  return {
+    type: Actions.SET_STATION_REPORTS,
+    reports,
+  };
 }

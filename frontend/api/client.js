@@ -89,3 +89,7 @@ export function requestDeleteFoundReport(reportId) {
 export function requestGetCurrentFoundReports() {
   return auth.client.get(`/users/${auth.user.id}/found_reports`, {});
 }
+
+export function requestGetStationReports(stationId) {
+  return auth.client.get(`/stations/${stationId}/found_reports`, {});
+}

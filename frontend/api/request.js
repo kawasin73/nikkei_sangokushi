@@ -11,6 +11,7 @@ import {
   requestUpdateFoundReport,
   requestDeleteFoundReport,
   requestGetCurrentFoundReports,
+  requestGetStationReports,
 } from './client';
 
 import auth from './auth';
@@ -89,5 +90,11 @@ export async function deleteFoundReport(reportId) {
 export async function getCurrentFoundReports() {
   const response = await requestGetCurrentFoundReports();
   const reports = response.data.data.found_reports.map((report) => FoundReport.fromJS(report));
-  return reports;
+  return new List(reports);
+}
+
+export async function getStationReports(stationId) {
+  const response = await requestGetStationReports(stationId);
+  const reports = response.data.data.found_reports.map((report) => FoundReport.fromJS(report));
+  return new List(reports);
 }
