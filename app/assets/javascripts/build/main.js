@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c7a73b0f011e0b5ddac"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b5cc34435cf5f7217153"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -627,7 +627,11 @@
 
 	var _MyPageContainer2 = _interopRequireDefault(_MyPageContainer);
 
-	var _configureMainStore = __webpack_require__(812);
+	var _ReportNewContainer = __webpack_require__(812);
+
+	var _ReportNewContainer2 = _interopRequireDefault(_ReportNewContainer);
+
+	var _configureMainStore = __webpack_require__(813);
 
 	var _configureMainStore2 = _interopRequireDefault(_configureMainStore);
 
@@ -647,6 +651,7 @@
 	      { path: '/', component: _MetoroContainer2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _MainContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/stations/:stationId', component: _StationContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/stations/:stationId/reports/new', component: _ReportNewContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/mypage', component: _MyPageContainer2.default })
 	    )
 	  )
@@ -54930,7 +54935,11 @@
 	          onClickSignUp: this.onClickSignUp.bind(this),
 	          onClickSignOut: this.onClickSignOut.bind(this)
 	        }),
-	        this.canShowChildren() ? this.props.children : null,
+	        this.canShowChildren() ? this.props.children : _react3.default.createElement(
+	          'p',
+	          null,
+	          'now loading...'
+	        ),
 	        _react3.default.createElement(_AuthModal2.default, {
 	          authManager: this.props.authManager,
 	          onSignIn: this.onSignIn.bind(this),
@@ -61724,7 +61733,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.checkOutStation = exports.checkInStation = exports.getCheckIns = exports.getStations = exports.signOut = exports.signIn = exports.signUp = undefined;
+	exports.postFoundReport = exports.checkOutStation = exports.checkInStation = exports.getCheckIns = exports.getStations = exports.signOut = exports.signIn = exports.signUp = undefined;
 
 	var signUp = exports.signUp = function () {
 	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(nickName, password) {
@@ -61927,6 +61936,33 @@
 
 	  return function checkOutStation(_x6) {
 	    return _ref7.apply(this, arguments);
+	  };
+	}();
+
+	var postFoundReport = exports.postFoundReport = function () {
+	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(stationId, comment, image) {
+	    var response;
+	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+	      while (1) {
+	        switch (_context8.prev = _context8.next) {
+	          case 0:
+	            _context8.next = 2;
+	            return (0, _client.requestPostFoundReport)(stationId, comment, image);
+
+	          case 2:
+	            response = _context8.sent;
+	            return _context8.abrupt('return', true);
+
+	          case 4:
+	          case 'end':
+	            return _context8.stop();
+	        }
+	      }
+	    }, _callee8, this);
+	  }));
+
+	  return function postFoundReport(_x7, _x8, _x9) {
+	    return _ref8.apply(this, arguments);
 	  };
 	}();
 
@@ -66955,6 +66991,7 @@
 	exports.requestGetCheckIns = requestGetCheckIns;
 	exports.requestPostCheckIn = requestPostCheckIn;
 	exports.requestDeleteCheckIn = requestDeleteCheckIn;
+	exports.requestPostFoundReport = requestPostFoundReport;
 
 	var _axios = __webpack_require__(729);
 
@@ -67026,6 +67063,16 @@
 	  return _auth2.default.client.delete('/stations/' + stationId + '/check_ins', {
 	    station_id: stationId
 	  });
+	}
+
+	function requestPostFoundReport(stationId, comment, image) {
+	  var data = new FormData();
+	  data.append('station_id', stationId);
+	  data.append('comment', comment);
+	  if (image) {
+	    data.append('image', image);
+	  }
+	  return _auth2.default.client.post('/found_reports', data);
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
@@ -68829,6 +68876,7 @@
 	exports.refreshCheckIns = refreshCheckIns;
 	exports.createCheckIn = createCheckIn;
 	exports.deleteCheckIn = deleteCheckIn;
+	exports.createFoundReport = createFoundReport;
 
 	var _request = __webpack_require__(726);
 
@@ -68838,7 +68886,8 @@
 	  SET_STATIONS: 'station/set_stations',
 	  REFRESH_CHECK_IN: 'station/refresh_check_in',
 	  REPLACE_STATION: 'station/replace_station',
-	  INITIALIZED: 'station/initialized'
+	  INITIALIZED: 'station/initialized',
+	  SET_SUBMITTING: 'station/set_submitting'
 	};
 
 	exports.default = Actions;
@@ -69015,6 +69064,45 @@
 	  return {
 	    type: Actions.REPLACE_STATION,
 	    station: station
+	  };
+	}
+
+	function createFoundReport(stationId, comment, image) {
+	  var _this5 = this;
+
+	  return function () {
+	    var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(dispatch) {
+	      var res;
+	      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	        while (1) {
+	          switch (_context5.prev = _context5.next) {
+	            case 0:
+	              dispatch(setSubmitting(true));
+	              try {
+	                res = (0, _request.postFoundReport)(stationId, comment, image);
+	              } catch (error) {
+	                console.log(error);
+	              }
+	              dispatch(setSubmitting(false));
+
+	            case 3:
+	            case 'end':
+	              return _context5.stop();
+	          }
+	        }
+	      }, _callee5, _this5);
+	    }));
+
+	    return function (_x5) {
+	      return _ref5.apply(this, arguments);
+	    };
+	  }();
+	}
+
+	function setSubmitting(value) {
+	  return {
+	    type: Actions.SET_SUBMITTING,
+	    value: value
 	  };
 	}
 
@@ -72677,7 +72765,27 @@
 	  _createClass(MyPageContainer, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      if (!this.checkSignState(this.props)) {
+	        return;
+	      }
 	      this.props.refreshCheckIns();
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      console.log("componentWillReceiveProps");
+	      this.checkSignState(nextProps);
+	    }
+	  }, {
+	    key: 'checkSignState',
+	    value: function checkSignState(props) {
+	      console.log("props.authManager.isSignedIn()", props.authManager.isSignedIn());
+	      if (!props.authManager.isSignedIn()) {
+	        this.context.router.push("/");
+	        return false;
+	      } else {
+	        return true;
+	      }
 	    }
 	  }, {
 	    key: 'onClickCheckIn',
@@ -72729,6 +72837,15 @@
 	          'td',
 	          null,
 	          _react3.default.createElement('input', { type: 'checkbox', checked: station.haveCheckedIn, onChange: this.onClickCheckIn.bind(this, station) })
+	        ),
+	        _react3.default.createElement(
+	          'td',
+	          null,
+	          _react3.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/stations/' + station.id + '/reports/new' },
+	            '\u767A\u898B!'
+	          )
 	        )
 	      );
 	    }
@@ -72737,8 +72854,13 @@
 	  return MyPageContainer;
 	}(_react2.Component));
 
+	MyPageContainer.contextTypes = {
+	  router: _react2.PropTypes.object.isRequired
+	};
+
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
+	    authManager: state.main.authManager,
 	    stations: state.station.stations
 	  };
 	};
@@ -72758,6 +72880,162 @@
 /* 812 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _redboxReact2 = __webpack_require__(573);
+
+	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+	var _reactTransformCatchErrors3 = __webpack_require__(578);
+
+	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+	var _react2 = __webpack_require__(1);
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _reactTransformHmr3 = __webpack_require__(579);
+
+	var _reactTransformHmr4 = _interopRequireDefault(_reactTransformHmr3);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _reactRouter = __webpack_require__(199);
+
+	var _reactRedux = __webpack_require__(267);
+
+	var _redux = __webpack_require__(32);
+
+	var _station = __webpack_require__(759);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+	  ReportNewContainer: {
+	    displayName: 'ReportNewContainer'
+	  }
+	};
+
+	var _reactTransformHmr2 = (0, _reactTransformHmr4.default)({
+	  filename: '/Users/kawasin73/RubymineProjects/nikkei_sangokushi/frontend/containers/ReportNewContainer.jsx',
+	  components: _components,
+	  locals: [module],
+	  imports: [_react3.default]
+	});
+
+	var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+	  filename: '/Users/kawasin73/RubymineProjects/nikkei_sangokushi/frontend/containers/ReportNewContainer.jsx',
+	  components: _components,
+	  locals: [],
+	  imports: [_react3.default, _redboxReact3.default]
+	});
+
+	function _wrapComponent(id) {
+	  return function (Component) {
+	    return _reactTransformHmr2(_reactTransformCatchErrors2(Component, id), id);
+	  };
+	}
+
+	var ReportNewContainer = _wrapComponent('ReportNewContainer')(function (_Component) {
+	  _inherits(ReportNewContainer, _Component);
+
+	  function ReportNewContainer(props) {
+	    _classCallCheck(this, ReportNewContainer);
+
+	    var _this = _possibleConstructorReturn(this, (ReportNewContainer.__proto__ || Object.getPrototypeOf(ReportNewContainer)).call(this, props));
+
+	    _this.state = {
+	      comment: "",
+	      image: undefined
+	    };
+	    return _this;
+	  }
+
+	  _createClass(ReportNewContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'onChangeComment',
+	    value: function onChangeComment(e) {
+	      this.setState({
+	        comment: e.target.value
+	      });
+	    }
+	  }, {
+	    key: 'onChangeImage',
+	    value: function onChangeImage(e) {
+	      this.setState({
+	        image: e.target.files[0]
+	      });
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit() {
+	      this.props.createFoundReport(this.props.params.stationId, this.state.comment, this.state.image);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react3.default.createElement(
+	        'div',
+	        null,
+	        'new',
+	        this.props.params.stationId,
+	        _react3.default.createElement(
+	          'p',
+	          null,
+	          '\u30B3\u30E1\u30F3\u30C8'
+	        ),
+	        _react3.default.createElement('textarea', { value: this.state.comment, onChange: this.onChangeComment.bind(this) }),
+	        _react3.default.createElement(
+	          'p',
+	          null,
+	          '\u753B\u50CF'
+	        ),
+	        _react3.default.createElement('input', { type: 'file', onChange: this.onChangeImage.bind(this) }),
+	        _react3.default.createElement(
+	          'button',
+	          { onClick: this.onSubmit.bind(this) },
+	          '\u767B\u9332'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ReportNewContainer;
+	}(_react2.Component));
+
+	ReportNewContainer.contextTypes = {
+	  router: _react2.PropTypes.object.isRequired
+	};
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {};
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    createFoundReport: _station.createFoundReport
+	  }, dispatch);
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ReportNewContainer);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(46)(module)))
+
+/***/ },
+/* 813 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -72771,7 +73049,7 @@
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _mainApp = __webpack_require__(813);
+	var _mainApp = __webpack_require__(814);
 
 	var _mainApp2 = _interopRequireDefault(_mainApp);
 
@@ -72782,15 +73060,15 @@
 	  // Middlewares
 	  (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default)));
 
-	  module.hot.accept(813, function () {
-	    store.replaceReducer(__webpack_require__(813).default);
+	  module.hot.accept(814, function () {
+	    store.replaceReducer(__webpack_require__(814).default);
 	  });
 
 	  return store;
 	}
 
 /***/ },
-/* 813 */
+/* 814 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72803,11 +73081,11 @@
 
 	var _reactRouterRedux = __webpack_require__(262);
 
-	var _station = __webpack_require__(814);
+	var _station = __webpack_require__(815);
 
 	var _station2 = _interopRequireDefault(_station);
 
-	var _main = __webpack_require__(815);
+	var _main = __webpack_require__(816);
 
 	var _main2 = _interopRequireDefault(_main);
 
@@ -72820,7 +73098,7 @@
 	});
 
 /***/ },
-/* 814 */
+/* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72904,13 +73182,25 @@
 	  }
 	}
 
+	function isSubmittingReport() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	  var action = arguments[1];
+
+	  switch (action.type) {
+
+	    default:
+	      return state;
+	  }
+	}
+
 	exports.default = (0, _redux.combineReducers)({
 	  stations: stations,
-	  isInitialized: isInitialized
+	  isInitialized: isInitialized,
+	  isSubmittingReport: isSubmittingReport
 	});
 
 /***/ },
-/* 815 */
+/* 816 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72931,7 +73221,7 @@
 
 	var _auth4 = _interopRequireDefault(_auth3);
 
-	var _authManager = __webpack_require__(816);
+	var _authManager = __webpack_require__(817);
 
 	var _authManager2 = _interopRequireDefault(_authManager);
 
@@ -72960,7 +73250,7 @@
 	});
 
 /***/ },
-/* 816 */
+/* 817 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
