@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eff74fd72ffef6d59e4d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9a59fc0e0ad1055e98bd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -71581,7 +71581,7 @@
 	            null,
 	            'password'
 	          ),
-	          _react3.default.createElement('input', { onChange: this.onChangePassword.bind(this), value: this.state.password }),
+	          _react3.default.createElement('input', { type: 'password', onChange: this.onChangePassword.bind(this), value: this.state.password }),
 	          _react3.default.createElement(
 	            'button',
 	            { onClick: this.onSubmit.bind(this) },
