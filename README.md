@@ -1,24 +1,33 @@
-# README
+# nikkei_sangokushi
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Everything you need to complete all Ads in [http://pr.nikkei.com/campaign_event/2017_sangokushi/](http://pr.nikkei.com/campaign_event/2017_sangokushi/) is here.
 
-Things you may want to cover:
+heroku demo: https://pure-shelf-93909.herokuapp.com/
 
-* Ruby version
+## to develop
 
-* System dependencies
+```bash
+git clone https://github.com/kawasin73/nikkei_sangokushi.git
+cd nikkei_sangokushi
+docker-compose up -d
+npm run webpack:serve
+```
 
-* Configuration
+### to install new gem
 
-* Database creation
+1. Add gem to Gemfile
+2. Exec `docker-compose exec spring bundle install`
 
-* Database initialization
+### rails console?
 
-* How to run the test suite
+1. Exec `docker-compose exec spring rails c`
 
-* Services (job queues, cache servers, search engines, etc.)
+### to attach rails process for binding.pry
 
-* Deployment instructions
+1. Exec `docker ps` and check the rails container name
+2. Exec `docker attach "the container name you checked"`
 
-* ...
+### build js
+
+1. Exec `npm run build`
+2. git commit
