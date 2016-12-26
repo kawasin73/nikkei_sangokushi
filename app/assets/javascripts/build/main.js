@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9a59fc0e0ad1055e98bd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1f2ef679c6cda1f04f17"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -73912,7 +73912,7 @@
 	        _react3.default.createElement('input', { type: 'file', onChange: this.onChangeImage.bind(this) }),
 	        _react3.default.createElement(
 	          'button',
-	          { onClick: this.onSubmit.bind(this) },
+	          { onClick: this.onSubmit.bind(this), disabled: this.props.station.isSubmittingReport },
 	          '\u767B\u9332'
 	        )
 	      );
@@ -73928,6 +73928,7 @@
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
+	    station: state.station,
 	    stations: state.station.stations
 	  };
 	};
@@ -74156,12 +74157,12 @@
 	        _react3.default.createElement('input', { type: 'file', onChange: this.onChangeImage.bind(this) }),
 	        _react3.default.createElement(
 	          'button',
-	          { onClick: this.onSubmit.bind(this) },
+	          { onClick: this.onSubmit.bind(this), disabled: this.props.station.isSubmittingReport },
 	          '\u66F4\u65B0'
 	        ),
 	        _react3.default.createElement(
 	          'button',
-	          { onClick: this.onDelete.bind(this) },
+	          { onClick: this.onDelete.bind(this), disabled: this.props.station.isSubmittingReport },
 	          '\u524A\u9664'
 	        )
 	      );
@@ -74177,6 +74178,7 @@
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
+	    station: state.station,
 	    stations: state.station.stations,
 	    foundReports: state.station.foundReports
 	  };
