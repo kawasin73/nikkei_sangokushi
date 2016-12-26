@@ -7,6 +7,7 @@ const Actions = {
   INITIALIZED: 'station/initialized',
   SET_SUBMITTING: 'station/set_submitting',
   ADD_FOUND_REPORT: 'station/add_found_report',
+  REMOVE_FOUND_REPORT: 'station/remove_found_report',
 };
 
 import * as request from '../api/request';
@@ -138,6 +139,27 @@ export function updateFoundReport(reportId, comment, image) {
 function replaceFoundReport(report) {
   return {
     type: Actions.REPLACE_FOUND_REPORT,
+    report,
+  }
+}
+
+export function deleteFoundReport(report) {
+  return async(dispatch) => {
+    dispatch(setSubmitting(true));
+    try {
+      console.log("report: ", report);
+      await request.deleteFoundReport(report.id);
+      dispatch(removeFoundReport(report));
+    } catch (error) {
+      console.log(error);
+    }
+    dispatch(setSubmitting(false));
+  };
+}
+
+function removeFoundReport(report) {
+  return {
+    type: Actions.REMOVE_FOUND_REPORT,
     report,
   }
 }

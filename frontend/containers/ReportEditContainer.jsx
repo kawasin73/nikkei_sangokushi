@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {updateFoundReport} from '../actions/station';
+import {updateFoundReport,deleteFoundReport} from '../actions/station';
 
 class ReportEditContainer extends Component {
 
@@ -48,8 +48,10 @@ class ReportEditContainer extends Component {
     this.context.router.push("/mypage");
   }
 
-  onDelete() {
-    // TODO:
+  async onDelete() {
+    console.log("delete report:", this.report());
+    await this.props.deleteFoundReport(this.report());
+    this.context.router.push("/mypage");
   }
 
   render() {
@@ -63,7 +65,7 @@ class ReportEditContainer extends Component {
         <img src={this.report().imageUrl}/>
         <input type="file" onChange={this.onChangeImage.bind(this)}/>
         <button onClick={this.onSubmit.bind(this)}>更新</button>
-        <button>削除</button>
+        <button onClick={this.onDelete.bind(this)}>削除</button>
       </div>
     );
   }
@@ -83,6 +85,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     updateFoundReport,
+    deleteFoundReport,
   }, dispatch)
 };
 

@@ -25,7 +25,7 @@ class Station < ApplicationRecord
   has_many :found_reports, through: :check_ins
 
   validates :name, presence: true
-  validates :name_kana, presence: true
+  # validates :name_kana, presence: true
 
   def update_found_count
     self.found_count = found_reports.count

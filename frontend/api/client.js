@@ -82,6 +82,10 @@ export function requestUpdateFoundReport(reportId, comment, image) {
   return auth.client.put(`/found_reports/${reportId}`, data);
 }
 
+export function requestDeleteFoundReport(reportId) {
+  return auth.client.delete(`/found_reports/${reportId}`);
+}
+
 export function requestGetCurrentFoundReports() {
   return auth.client.get(`/users/${auth.user.id}/found_reports`, {});
 }

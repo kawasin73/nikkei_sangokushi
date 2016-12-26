@@ -30,6 +30,15 @@ function stations(state = new List(), action) {
         }
       })
     }
+    case StationActions.REMOVE_FOUND_REPORT: {
+      return state.map((station) => {
+        if (station.id !== action.report.station.id) {
+          return station;
+        } else {
+          return station.set('haveFound', false);
+        }
+      })
+    }
     case StationActions.REPLACE_STATION: {
       return state.map((station) => {
         if (station.id === action.station.id) {
@@ -71,6 +80,11 @@ function foundReports(state = new List(), action) {
         } else {
           return report;
         }
+      })
+    }
+    case StationActions.REMOVE_FOUND_REPORT: {
+      return state.filter((report) => {
+        return report.id !== action.report.id;
       })
     }
     default: {
