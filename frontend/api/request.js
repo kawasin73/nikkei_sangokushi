@@ -8,6 +8,7 @@ import {
   requestPostCheckIn,
   requestDeleteCheckIn,
   requestPostFoundReport,
+  requestUpdateFoundReport,
   requestGetCurrentFoundReports,
 } from './client';
 
@@ -69,6 +70,12 @@ export async function checkOutStation(station) {
 
 export async function postFoundReport(stationId, comment, image) {
   const response = await requestPostFoundReport(stationId, comment, image);
+  const foundReport = FoundReport.fromJS(response.data.data.report);
+  return foundReport;
+}
+
+export async function updateFoundReport(reportId, comment, image) {
+  const response = await requestUpdateFoundReport(reportId, comment, image);
   const foundReport = FoundReport.fromJS(response.data.data.report);
   return foundReport;
 }

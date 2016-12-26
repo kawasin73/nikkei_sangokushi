@@ -43,7 +43,7 @@ class MyStationsContainer extends Component {
         <td>
           {
             station.haveFound ? (
-              <span>発見済み</span>
+              <Link to={`/stations/${station.id}/reports/edit`}>発見済み</Link>
             ) : (
               <Link to={`/stations/${station.id}/reports/new`}>発見!</Link>
             )

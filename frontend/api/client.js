@@ -73,6 +73,15 @@ export function requestPostFoundReport(stationId, comment, image) {
   return auth.client.post('/found_reports', data);
 }
 
+export function requestUpdateFoundReport(reportId, comment, image) {
+  let data = new FormData();
+  data.append('comment', comment);
+  if (image) {
+    data.append('image', image);
+  }
+  return auth.client.put(`/found_reports/${reportId}`, data);
+}
+
 export function requestGetCurrentFoundReports() {
   return auth.client.get(`/users/${auth.user.id}/found_reports`, {});
 }

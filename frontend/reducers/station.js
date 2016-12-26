@@ -64,6 +64,15 @@ function foundReports(state = new List(), action) {
     case StationActions.ADD_FOUND_REPORT: {
       return state.push(action.report);
     }
+    case StationActions.REPLACE_FOUND_REPORT: {
+      return state.map((report) => {
+        if (report.id === action.report.id) {
+          return action.report;
+        } else {
+          return report;
+        }
+      })
+    }
     default: {
       return state;
     }

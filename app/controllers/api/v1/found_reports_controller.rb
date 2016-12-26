@@ -47,6 +47,6 @@ class Api::V1::FoundReportsController < ApplicationController
   end
 
   def set_found_report
-    @found_report = current_user.found_reports.find(params[:report_id])
+    @found_report = current_user.found_reports.find(params[:id])
   end
 end

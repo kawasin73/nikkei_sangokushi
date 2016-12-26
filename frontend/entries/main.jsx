@@ -14,6 +14,7 @@ import StationContainer from '../containers/StationContainer';
 import MyPageContainer from '../containers/MyPageContainer';
 import MyStationsContainer from '../containers/MyStationsContainer';
 import ReportNewContainer from '../containers/ReportNewContainer';
+import ReportEditContainer from '../containers/ReportEditContainer';
 
 import configureStore from '../stores/configureMainStore';
 
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path="/mypage" component={MyPageContainer}>
           <IndexRoute component={MyStationsContainer}/>
           <Route path="/stations/:stationId/reports/new" component={ReportNewContainer}/>
+          <Route path="/stations/:stationId/reports/edit" component={ReportEditContainer}/>
         </Route>
       </Route>
     </Router>
