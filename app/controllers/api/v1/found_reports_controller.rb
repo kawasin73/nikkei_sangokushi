@@ -18,6 +18,8 @@ class Api::V1::FoundReportsController < ApplicationController
     @found_report = ApplicationRecord.transaction do
       check_in = current_user.check_in!(station)
       check_in.create_found_report!(create_params)
+      station.found_count += 1
+      station.save!
     end
     render action: :update
   end

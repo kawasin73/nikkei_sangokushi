@@ -5,6 +5,7 @@ const _Station = Record({
   id: null,
   name: "",
   nameKana: "",
+  foundCount: 0,
   line: new Line(),
   haveCheckedIn: false,
   haveFound: false,
@@ -16,6 +17,7 @@ export default class Station extends _Station {
       id: station.id,
       name: station.name,
       nameKana: station.name_kana,
+      foundCount: station.found_count,
       line: Line.fromJS(station.line),
     });
   }

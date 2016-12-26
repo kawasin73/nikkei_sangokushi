@@ -19,7 +19,7 @@ class MainContainer extends Component {
           this.props.stations.map((station) => {
             return (
               <li key={station.id}>
-              <Link to={`/stations/${station.id}`}>{station.name}: {station.line.name}</Link>
+              <Link to={`/stations/${station.id}`}>{station.name}: {station.line.name} {station.foundCount}</Link>
               </li>
             );
           })
