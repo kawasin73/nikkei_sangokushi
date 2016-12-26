@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :check_ins, inverse_of: :user
   has_many :found_reports, through: :check_ins
 
+  validates :nick_name, presence: true, uniqueness: true
   validates :password_hash, presence: true
   validates :password_salt, presence: true
   validates :password, confirmation: true

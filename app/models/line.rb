@@ -16,4 +16,7 @@
 
 class Line < ApplicationRecord
   has_many :stations, inverse_of: :line
+
+  validates :name, presence: true
+  validates :name_kana, presence: true
 end
