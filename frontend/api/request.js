@@ -69,7 +69,8 @@ export async function checkOutStation(station) {
 
 export async function postFoundReport(stationId, comment, image) {
   const response = await requestPostFoundReport(stationId, comment, image);
-  return true;
+  const foundReport = FoundReport.fromJS(response.data.data.report);
+  return foundReport;
 }
 
 export async function getCurrentFoundReports() {

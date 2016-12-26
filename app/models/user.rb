@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def check_out!(station)
-    check_in = check_ins.includes(:found_reports).find_by!(station: station)
+    check_in = check_ins.includes(:found_report).find_by!(station: station)
     check_in.check_and_destroy!
   end
 

@@ -5,6 +5,7 @@ const Actions = {
   REPLACE_STATION: 'station/replace_station',
   INITIALIZED: 'station/initialized',
   SET_SUBMITTING: 'station/set_submitting',
+  ADD_FOUND_REPORT: 'station/add_found_report',
 };
 
 import {
@@ -104,12 +105,20 @@ export function createFoundReport(stationId, comment, image) {
   return async(dispatch) => {
     dispatch(setSubmitting(true));
     try {
-      const res = postFoundReport(stationId, comment, image);
+      const report = await postFoundReport(stationId, comment, image);
+      dispatch(addFoundReport(report));
     } catch (error) {
       console.log(error);
     }
     dispatch(setSubmitting(false));
   }
+}
+
+function addFoundReport(report) {
+  return {
+    type: Actions.ADD_FOUND_REPORT,
+    report,
+  };
 }
 
 function setSubmitting(value) {

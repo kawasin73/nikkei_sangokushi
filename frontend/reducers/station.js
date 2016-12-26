@@ -20,6 +20,16 @@ function stations(state = new List(), action) {
         return station.set('haveFound', ids.includes(station.id));
       });
     }
+    case StationActions.ADD_FOUND_REPORT: {
+      console.log("action.report", action.report);
+      return state.map((station) => {
+        if (station.id !== action.report.station.id) {
+          return station;
+        } else {
+          return station.set('haveFound', true).set('haveCheckedIn', true);
+        }
+      })
+    }
     case StationActions.REPLACE_STATION: {
       return state.map((station) => {
         if (station.id === action.station.id) {
@@ -50,6 +60,9 @@ function foundReports(state = new List(), action) {
   switch (action.type) {
     case StationActions.REFRESH_FOUND_REPORT: {
       return action.reports;
+    }
+    case StationActions.ADD_FOUND_REPORT: {
+      return state.push(action.report);
     }
     default: {
       return state;

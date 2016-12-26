@@ -30,7 +30,7 @@ class CheckIn < ApplicationRecord
   has_one :found_report, inverse_of: :check_in
 
   def can_delete?
-    found_reports.count == 0
+    found_report.blank?
   end
 
   def check_and_destroy!

@@ -16,7 +16,14 @@ class ReportNewContainer extends Component {
   }
 
   componentDidMount() {
+    const station = this.station();
+    if (!station || station.haveFound) {
+      this.context.router.push("/mypage");
+    }
+  }
 
+  station() {
+    return this.props.stations.find((station) => `${station.id}` === this.props.params.stationId);
   }
 
   onChangeComment(e) {
@@ -31,8 +38,9 @@ class ReportNewContainer extends Component {
     });
   }
 
-  onSubmit() {
-    this.props.createFoundReport(this.props.params.stationId, this.state.comment, this.state.image);
+  async onSubmit() {
+    await this.props.createFoundReport(this.props.params.stationId, this.state.comment, this.state.image);
+    this.context.router.push("/mypage");
   }
 
   render() {
@@ -54,7 +62,9 @@ ReportNewContainer.contextTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  return {
+    stations: state.station.stations,
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
