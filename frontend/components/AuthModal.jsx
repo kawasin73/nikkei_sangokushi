@@ -76,7 +76,7 @@ class AuthModal extends Component {
           <p>id</p>
           <input onChange={this.onChangeNickName.bind(this)} value={this.state.nickName}/>
           <p>password</p>
-          <input onChange={this.onChangePassword.bind(this)} value={this.state.password}/>
+          <input type="password" onChange={this.onChangePassword.bind(this)} value={this.state.password}/>
           <button onClick={this.onSubmit.bind(this)}>{this.submitLabel()}</button>
         </div>
       </Modal>
