@@ -7,6 +7,7 @@ const _Station = Record({
   nameKana: "",
   line: new Line(),
   haveCheckedIn: false,
+  haveFound: false,
 });
 
 export default class Station extends _Station {

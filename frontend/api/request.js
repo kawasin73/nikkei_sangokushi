@@ -8,6 +8,7 @@ import {
   requestPostCheckIn,
   requestDeleteCheckIn,
   requestPostFoundReport,
+  requestGetCurrentFoundReports,
 } from './client';
 
 import auth from './auth';
@@ -15,6 +16,7 @@ import auth from './auth';
 import Station from '../records/station';
 import CheckIn from '../records/checkIn';
 import User from '../records/user';
+import FoundReport from '../records/foundReport';
 
 export async function signUp(nickName, password) {
   const response = await requestSignUp(nickName, password);
@@ -68,4 +70,10 @@ export async function checkOutStation(station) {
 export async function postFoundReport(stationId, comment, image) {
   const response = await requestPostFoundReport(stationId, comment, image);
   return true;
+}
+
+export async function getCurrentFoundReports() {
+  const response = await requestGetCurrentFoundReports();
+  const reports = response.data.data.found_reports.map((report) => FoundReport.fromJS(report));
+  return reports;
 }

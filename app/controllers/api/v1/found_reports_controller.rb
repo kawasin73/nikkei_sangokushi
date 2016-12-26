@@ -10,7 +10,7 @@ class Api::V1::FoundReportsController < ApplicationController
              else
                raise NotFound
              end
-    @found_reports = source.found_reports.all.includes([:user, :station])
+    @found_reports = source.found_reports.all.includes(check_in: [:user, :station])
   end
 
   def create

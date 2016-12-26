@@ -72,3 +72,7 @@ export function requestPostFoundReport(stationId, comment, image) {
   }
   return auth.client.post('/found_reports', data);
 }
+
+export function requestGetCurrentFoundReports() {
+  return auth.client.get(`/users/${auth.user.id}/found_reports`, {});
+}

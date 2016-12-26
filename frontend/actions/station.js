@@ -1,6 +1,7 @@
 const Actions = {
   SET_STATIONS: 'station/set_stations',
   REFRESH_CHECK_IN: 'station/refresh_check_in',
+  REFRESH_FOUND_REPORT: 'station/refresh_found_report',
   REPLACE_STATION: 'station/replace_station',
   INITIALIZED: 'station/initialized',
   SET_SUBMITTING: 'station/set_submitting',
@@ -11,7 +12,8 @@ import {
   getCheckIns,
   checkInStation,
   checkOutStation,
-  postFoundReport
+  postFoundReport,
+  getCurrentFoundReports,
 } from '../api/request';
 
 export default Actions
@@ -39,6 +41,13 @@ export function refreshCheckIns() {
   };
 }
 
+export function refreshFoundReports() {
+  return async(dispatch) => {
+    const reports = await getCurrentFoundReports();
+    dispatch(refreshFoundReport(reports));
+  }
+}
+
 function refreshCheckIn(checkIns) {
   return {
     type: Actions.REFRESH_CHECK_IN,
@@ -50,6 +59,13 @@ function setStations(stations) {
   return {
     type: Actions.SET_STATIONS,
     stations: stations,
+  };
+}
+
+function refreshFoundReport(reports) {
+  return {
+    type: Actions.REFRESH_FOUND_REPORT,
+    reports,
   };
 }
 

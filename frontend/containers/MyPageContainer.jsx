@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { refreshCheckIns, createCheckIn, deleteCheckIn } from '../actions/station';
+import { refreshCheckIns, createCheckIn, deleteCheckIn, refreshFoundReports } from '../actions/station';
 
 class MyPageContainer extends Component {
 
@@ -12,6 +12,7 @@ class MyPageContainer extends Component {
       return;
     }
     this.props.refreshCheckIns();
+    this.props.refreshFoundReports();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,7 +61,13 @@ class MyPageContainer extends Component {
           <input type="checkbox" checked={station.haveCheckedIn} onChange={this.onClickCheckIn.bind(this, station)}/>
         </td>
         <td>
-          <Link to={`/stations/${station.id}/reports/new`}>発見!</Link>
+          {
+            station.haveFound ? (
+              <span>発見済み</span>
+            ) : (
+              <Link to={`/stations/${station.id}/reports/new`}>発見!</Link>
+            )
+          }
         </td>
       </tr>
     )
@@ -83,6 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     refreshCheckIns,
     createCheckIn,
     deleteCheckIn,
+    refreshFoundReports,
   }, dispatch)
 };
 
