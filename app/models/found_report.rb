@@ -22,4 +22,6 @@ class FoundReport < ApplicationRecord
   belongs_to :check_in, inverse_of: :found_reports
 
   delegate :station, :user, to: :check_in
+
+  mount_uploader :image, ReportImageUploader
 end

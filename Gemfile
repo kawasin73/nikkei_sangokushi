@@ -66,6 +66,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # models
 gem 'seed-fu'
 gem 'carrierwave'
+gem "mini_magick"
 
 # encrypt
 gem 'bcrypt'

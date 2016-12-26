@@ -10,7 +10,7 @@
 !/tmp/downloads/.keep
 !/tmp/sockets/.keep
 /public/system
-/public/uploads/tmp
+/public/uploads/
 /public/supports/agreement.html
 /public/supports/privacy_policy.html
 /public/supports/license_ios.html

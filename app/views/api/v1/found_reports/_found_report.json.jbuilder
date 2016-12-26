@@ -1,5 +1,5 @@
 json.id found_report.id
-json.image_url found_report.image # TODO: image_url
+json.image_url found_report.image_url
 json.comment found_report.comment
 json.station do
   json.partial! 'api/v1/stations/station', station: found_report.station
