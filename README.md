@@ -9,6 +9,7 @@ heroku demo: https://pure-shelf-93909.herokuapp.com/
 ```bash
 git clone https://github.com/kawasin73/nikkei_sangokushi.git
 cd nikkei_sangokushi
+cp .env.sample .env
 docker-compose up -d
 npm run webpack:serve
 ```
@@ -31,3 +32,14 @@ npm run webpack:serve
 
 1. Exec `npm run build`
 2. git commit
+
+## manual
+
+### how to refresh station list?
+
+See `/lib/scratches/load_stations.rb`
+
+### where is the frontend code
+
+frontend codes are in `/frontend/` which is isolated from rails code.
+you need to run `npm run build` and git commit to deploy frontend code to heroku.
